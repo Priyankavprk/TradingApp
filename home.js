@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const App = ({ navigation }) => {
+const Home = () => {
   const count = useSelector(state => state.tradeReducer.counter);
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,13 +31,7 @@ const App = ({ navigation }) => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-            <Text>{count}</Text>
-            <Button
-              title="Test Click"
-              onPress={() =>
-                navigation.navigate('testScreen', { value: 'data' })
-              }
-            />
+            <Text>check screen{count}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -64,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Home;
