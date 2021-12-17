@@ -27,6 +27,7 @@ const renderItem = (item, data) => {
 const InfoSection = (props) => {
     const displayFormat = ["bid", "last", "vwap", "ask", "volume"];
     const dateTime = moment.unix(props.data.timestamp).format('DD MMMM, YYYY HH:MM:SS');
+    console.log("data............", props.title)
     return (
         <>
            <View style={styles.headingSection}>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -17,18 +17,7 @@ import SearchBar from '../components/searchBar';
 import InfoSection from '../components/infoSection';
 import OrderBook from '../components/orderBook';
 
-const DefaultView = () => {
-    return (
-        <View style={styles.defaultViewContainer}>
-            <Image style={styles.imageStyle} source={require('./searchIcon.png')} />
-            <Text>Enter a currency pair to load data</Text>
-        </View>
-    );
-};
-
-const DataSection = () => {
-    const [showTable, setTable] = useState(false);
-
+const Home = ({ navigation }) => {
     const currencyData = useSelector(state => state.tradeReducer.data);
     const currencyPair = useSelector(state => state.tradeReducer.currencyPair);
     const orderBook = useSelector(state => state.tradeReducer.orderBook);
@@ -44,45 +33,59 @@ const DataSection = () => {
         setTable(!showTable);
     };
 
+    const [showTable, setTable] = useState(false);
+    const [searchText, setSearchText] = useState("");
+
+    const DefaultView = () => {
+        return (
+            <View style={styles.defaultViewContainer}>
+                <Image style={styles.imageStyle} source={require('./searchIcon.png')} />
+                <Text>Enter a currency pair to load data</Text>
+            </View>
+        );
+    };
+
+    const handleRefresh = () => {
+        dispatch({ type: "REFRESH_DATA" });
+        setSearchText("");
+        setTable(false);
+    };
+
+    const DataSection = () => {
+        return (
+            <>
+                <InfoSection data={currencyData} title={currencyPair} />
+                <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
+                    <Text style={styles.actionText}>{showTable ? "HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
+                </TouchableOpacity>
+                {showTable && <OrderBook data={orderBook} bids={bids} asks={asks} />}
+                <TouchableOpacity onPress={() => handleRefresh()} style={styles.refreshButton} >
+                    <FontAwesomeIcon icon={faSync} color={"#fff"} />
+                </TouchableOpacity>
+            </>
+        );
+    };
+
     return (
-        <>
-            <InfoSection data={currencyData} title={currencyPair} />
-            <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
-                <Text style={styles.actionText}>{showTable ?"HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
-            </TouchableOpacity>
-            {showTable && <OrderBook data={orderBook} bids={bids} asks={asks} />}
-            <TouchableOpacity onPress={() => dispatch({type: "REFRESH_DATA"})} style={styles.refreshButton} >
-                <FontAwesomeIcon icon={ faSync } color={"#fff"} />
-            </TouchableOpacity>
-        </>
+        <SafeAreaView style={styles.container}>
+            <ScrollView
+                contentInsetAdjustmentBehavior="automatic"
+                contentContainerStyle={{ alignItems: "center" }}
+                style={styles.innerContainer}
+                showsVerticalScrollIndicator={false}
+            >
+                <View
+                    style={{
+                        width: "100%"
+                    }}
+                >
+                    <SearchBar value={searchText} setSearchText={setSearchText} onSearch={() => dispatch(getTradeData({data: searchText}))} />
+                    {!currencyData && <DefaultView />}
+                    {currencyData && <DataSection />}
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
-};
-
-const Home = ({ navigation }) => {
-  const currencyData = useSelector(state => state.tradeReducer.data);
-
-  const dispatch = useDispatch();
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={{alignItems: "center"}}
-        style={styles.innerContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View
-          style={{
-            width: "100%"
-          }}
-        >
-            <SearchBar onSearch={(payload) => dispatch(getTradeData(payload))} />
-            {!currencyData && <DefaultView />}
-            {currencyData && <DataSection />}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
 };
 
 const styles = StyleSheet.create({
