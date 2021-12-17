@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {TextInput, TouchableOpacity, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {Keyboard, TextInput, TouchableOpacity, StyleSheet, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
@@ -7,7 +7,7 @@ const SearchBar = (props) => {
     return (
         <View style={styles.searchContainer}>
             <TextInput value={props.value} onChangeText={value => props.setSearchText(value.toLowerCase())} placeholder='Enter currency pair' style={styles.searchText} />
-            <TouchableOpacity onPress={() => props.onSearch()} style={styles.searchButton} >
+            <TouchableOpacity onPress={() => {Keyboard.dismiss(); props.onSearch()}} style={styles.searchButton} >
                 <FontAwesomeIcon icon={ faSearch } />
             </TouchableOpacity>
         </View>

@@ -30,8 +30,8 @@ const InfoSection = (props) => {
     return (
         <View>
            <View style={styles.headingSection}>
-                <Text style={styles.titleText}>{props.title}</Text>
-                <Text>{dateTime}</Text>
+                <Text numberOfLines={1} style={styles.titleText}>{props.title}</Text>
+                <Text style={styles.dateFormat}>{dateTime}</Text>
            </View>
            <FlatList
                 data={displayFormat}
@@ -44,6 +44,9 @@ const InfoSection = (props) => {
 };
 
 const styles = StyleSheet.create({
+    dateFormat: {
+        fontSize: 12,
+    },
     headingSection: {
         display: "flex",
         flexDirection: "row",
@@ -65,6 +68,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 30,
         color: "#000",
+        maxWidth: 160,
     },
     valueText: {
         fontSize: 16,
