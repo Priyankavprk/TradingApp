@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons'
 
+import { getTradeData } from '../store/actions';
 import SearchBar from '../components/searchBar';
 import InfoSection from '../components/infoSection';
 import OrderBook from '../components/orderBook';
@@ -25,9 +26,25 @@ const DefaultView = () => {
     );
 };
 
+const DataSection = () => {
+    const dispatch = useDispatch();
+    return (
+        <>
+            <InfoSection />
+            <TouchableOpacity style={styles.actionTextConatiner} onPress={() => dispatch(getTradeData())}>
+                <Text style={styles.actionText}>VIEW ORDER BOOK</Text>
+            </TouchableOpacity>
+            <OrderBook />
+            <TouchableOpacity onPress={() => console.log("hai")} style={styles.refreshButton} >
+                <FontAwesomeIcon icon={ faSync } color={"#fff"} />
+            </TouchableOpacity>
+        </>
+    );
+};
+
 const Home = ({ navigation }) => {
   const count = useSelector(state => state.tradeReducer.counter);
-
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -40,16 +57,9 @@ const Home = ({ navigation }) => {
           style={{
             width: "100%"
           }}>
-            <SearchBar />
-            <InfoSection />
-            <TouchableOpacity style={styles.actionTextConatiner}>
-                <Text style={styles.actionText}>VIEW ORDER BOOK</Text>
-            </TouchableOpacity>
-            <OrderBook />
-            <TouchableOpacity onPress={() => console.log("hai")} style={styles.refreshButton} >
-                <FontAwesomeIcon icon={ faSync } color={"#fff"} />
-            </TouchableOpacity>
+            <SearchBar onSearch={(payload) => dispatch(getTradeData(payload))} />
             <DefaultView />
+            <DataSection />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -103,6 +113,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.9,
         shadowRadius: 3.84,
+        marginTop: 10,
     }
 });
 

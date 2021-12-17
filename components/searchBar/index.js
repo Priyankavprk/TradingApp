@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {TextInput, TouchableOpacity, StyleSheet, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+    const [searchText, setSearchText] = useState("");
     return (
         <View style={styles.searchContainer}>
-            <TextInput placeholder='Enter currency pair' style={styles.searchText} />
-            <TouchableOpacity onPress={() => console.log("hai")} style={styles.searchButton} >
+            <TextInput onChangeText={value => setSearchText(value.toLowerCase())} placeholder='Enter currency pair' style={styles.searchText} />
+            <TouchableOpacity onPress={() => props.onSearch({data: searchText})} style={styles.searchButton} >
                 <FontAwesomeIcon icon={ faSearch } />
             </TouchableOpacity>
         </View>

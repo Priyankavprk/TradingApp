@@ -1,16 +1,15 @@
-export function updateData() {
+export function getTradeData(payload) {
     return async (dispatch, getState) => {
-
-        const prevCounter = getState().tradeReducer.counter;
-
-        try {
+        fetch(`https://www.bitstamp.net/api/ticker/${payload.data}`, {
+            method: 'get'
+        })
+        .then(res => res.json())
+        .then(response => {
             dispatch({
-                type: 'ADD_DATA',
-                payload: prevCounter + 1,
+                type: "UPDATE_DATA",
+                items: response,
+                currencyPair: payload.data,
             });
-
-        } catch (err) {
-            console.error("Error: ", err);
-        }
+        });
     }
 }
