@@ -5,7 +5,7 @@ import {Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import App from './App';
+import Home from './screens/Home';
 import configureStore from './store/configureStore';
 
 const Stack = createNativeStackNavigator();
@@ -28,9 +28,9 @@ class Setup extends Component {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen
-                    name="Home"
-                    component={App}
-                    options={{ title: 'Welcome' }}
+                      name="Home"
+                      component={Home}
+                      options={{ title: 'TradingApp' }}
                     />
                     <Stack.Screen name="testScreen" component={TestScreen} />
                 </Stack.Navigator>

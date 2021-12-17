@@ -1,8 +1,8 @@
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -12,7 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const Home = () => {
+import SearchBar from '../components/searchBar';
+
+const Home = ({ navigation }) => {
   const count = useSelector(state => state.tradeReducer.counter);
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -22,16 +24,16 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView style={styles.container}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+        contentContainerStyle={{alignItems: "center"}}
+        style={styles.innerContainer}>
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            width: "100%"
           }}>
-            <Text>check screen{count}</Text>
+            <SearchBar />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -39,22 +41,18 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+    container: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        backgroundColor: "#fff",
+    },
+    innerContainer: {
+        marginHorizontal: 15,
+        marginVertical: 20,
+    }
 });
 
 export default Home;

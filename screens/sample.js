@@ -3,7 +3,6 @@ import {
   Button,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -13,7 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const App = ({ navigation }) => {
+import SearchBar from '../components/searchBar';
+
+const Home = ({ navigation }) => {
   const count = useSelector(state => state.tradeReducer.counter);
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -23,18 +24,19 @@ const App = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView style={styles.container}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+        contentContainerStyle={{alignItems: "center"}}
+        style={styles.innerContainer}>
         <View
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            width: "100%"
           }}>
+            <SearchBar />
             <Text>{count}</Text>
             <Button
-              title="Test Click"
+              title="Testd Click"
               onPress={() =>
                 navigation.navigate('testScreen', { value: 'data' })
               }
@@ -46,22 +48,18 @@ const App = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+    container: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "100%",
+        justifyContent: "center",
+        backgroundColor: "#fff",
+    },
+    innerContainer: {
+        marginHorizontal: 15,
+        marginVertical: 20,
+    }
 });
 
-export default App;
+export default Home;
