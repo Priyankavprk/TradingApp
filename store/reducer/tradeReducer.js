@@ -4,6 +4,8 @@ const initialState = {
   data: null,
   currencyPair: "",
   orderBook: [],
+  bids: [],
+  asks: [],
 };
 
 export default function tradeReducer(state = initialState, action) {
@@ -28,6 +30,8 @@ export default function tradeReducer(state = initialState, action) {
       return {
         ...state,
         orderBook: action.items,
+        bids: action.items.bids.slice(0,5),
+        asks: action.items.asks.slice(0,5)
       }
     }
     case "REFRESH_DATA": {

@@ -31,6 +31,9 @@ const DataSection = () => {
 
     const currencyData = useSelector(state => state.tradeReducer.data);
     const currencyPair = useSelector(state => state.tradeReducer.currencyPair);
+    const orderBook = useSelector(state => state.tradeReducer.orderBook);
+    const bids = useSelector(state => state.tradeReducer.bids);
+    const asks = useSelector(state => state.tradeReducer.asks);
 
     const dispatch = useDispatch();
 
@@ -47,7 +50,7 @@ const DataSection = () => {
             <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
                 <Text style={styles.actionText}>{showTable ?"HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
             </TouchableOpacity>
-            {showTable && <OrderBook />}
+            {showTable && <OrderBook data={orderBook} bids={bids} asks={asks} />}
             <TouchableOpacity onPress={() => dispatch({type: "REFRESH_DATA"})} style={styles.refreshButton} >
                 <FontAwesomeIcon icon={ faSync } color={"#fff"} />
             </TouchableOpacity>

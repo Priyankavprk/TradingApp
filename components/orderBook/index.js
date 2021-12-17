@@ -2,14 +2,15 @@ import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 
-const OrderBook = () => {
-    const tableHead = ['Head', 'Head2', 'Head3', 'Head4'];
-    const tableData = [
-        ['1', '2', '3', '4'],
-        ['a', 'b', 'c', 'd'],
-        ['1', '2', '3', '456789'],
-        ['a', 'b', 'c', 'd']
-      ];
+const OrderBook = (props) => {
+    const tableHead = ['BID PRICE', 'QTY', 'QTY', 'ASK PRICE']; 
+    const tableData = props.bids.map((item, index) => {
+        if (props.asks[index]) {
+            return [...item, ...props.asks[index]];
+        }
+        return [...item, 0, 0];
+    });
+    
     return (
         <>
             <Text style={styles.heading}>ORDER BOOK</Text>
