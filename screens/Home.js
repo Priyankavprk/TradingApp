@@ -5,14 +5,16 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  useColorScheme,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSync } from '@fortawesome/free-solid-svg-icons'
 
 import SearchBar from '../components/searchBar';
+import InfoSection from '../components/infoSection';
+import OrderBook from '../components/orderBook';
 
 const DefaultView = () => {
     return (
@@ -26,23 +28,27 @@ const DefaultView = () => {
 const Home = ({ navigation }) => {
   const count = useSelector(state => state.tradeReducer.counter);
 
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{alignItems: "center"}}
-        style={styles.innerContainer}>
+        style={styles.innerContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View
           style={{
             width: "100%"
           }}>
             <SearchBar />
+            <InfoSection />
+            <TouchableOpacity style={styles.actionTextConatiner}>
+                <Text style={styles.actionText}>VIEW ORDER BOOK</Text>
+            </TouchableOpacity>
+            <OrderBook />
+            <TouchableOpacity onPress={() => console.log("hai")} style={styles.refreshButton} >
+                <FontAwesomeIcon icon={ faSync } color={"#fff"} />
+            </TouchableOpacity>
             <DefaultView />
         </View>
       </ScrollView>
@@ -51,8 +57,16 @@ const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    actionText: {
+        color: "#811bf7",
+        fontWeight: "bold",
+    },
+    actionTextConatiner: {
+        alignSelf: "flex-end",
+    },
     container: {
         display: "flex",
+        flex: 1,
         flexDirection: "row",
         width: "100%",
         height: "100%",
@@ -72,6 +86,23 @@ const styles = StyleSheet.create({
     innerContainer: {
         marginHorizontal: 15,
         marginVertical: 20,
+    },
+    refreshButton: {
+        height: 50,
+        width: 50,
+        alignSelf: "flex-end",
+        borderRadius: 25,
+        backgroundColor: "#6e00f7",
+        alignItems: "center",
+        justifyContent: "center",
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.9,
+        shadowRadius: 3.84,
     }
 });
 
