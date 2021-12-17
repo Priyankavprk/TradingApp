@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -35,7 +35,7 @@ const DataSection = () => {
                 <Text style={styles.actionText}>VIEW ORDER BOOK</Text>
             </TouchableOpacity>
             <OrderBook />
-            <TouchableOpacity onPress={() => console.log("hai")} style={styles.refreshButton} >
+            <TouchableOpacity onPress={() => dispatch({type: "REFRESH_DATA"})} style={styles.refreshButton} >
                 <FontAwesomeIcon icon={ faSync } color={"#fff"} />
             </TouchableOpacity>
         </>
@@ -43,8 +43,11 @@ const DataSection = () => {
 };
 
 const Home = ({ navigation }) => {
-  const count = useSelector(state => state.tradeReducer.counter);
+  const currencyData = useSelector(state => state.tradeReducer.data);
+  const currencyPair = useSelector(state => state.tradeReducer.currencyPair);
+
   const dispatch = useDispatch();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -58,8 +61,8 @@ const Home = ({ navigation }) => {
             width: "100%"
           }}>
             <SearchBar onSearch={(payload) => dispatch(getTradeData(payload))} />
-            <DefaultView />
-            <DataSection />
+            {!currencyData && <DefaultView />}
+            {currencyData && <DataSection />}
         </View>
       </ScrollView>
     </SafeAreaView>

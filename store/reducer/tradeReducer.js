@@ -1,7 +1,7 @@
 import {REHYDRATE} from 'redux-persist/lib/constants';
 
 const initialState = {
-  data: [],
+  data: null,
   currencyPair: "",
 };
 
@@ -22,6 +22,12 @@ export default function tradeReducer(state = initialState, action) {
         ...state,
         data: action.items,
         currencyPair: action.currencyPair
+      }
+    }
+    case "REFRESH_DATA": {
+      console.log("reducer", action)
+      return {
+        ...initialState,
       }
     }
     default:
