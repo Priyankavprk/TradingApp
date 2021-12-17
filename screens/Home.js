@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button,
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,6 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 import SearchBar from '../components/searchBar';
+
+const DefaultView = () => {
+    return (
+        <View style={styles.defaultViewContainer}>
+            <Image style={styles.imageStyle} source={require('./searchIcon.png')} />
+            <Text>Enter a currency pair to load data</Text>
+        </View>
+    );
+};
 
 const Home = ({ navigation }) => {
   const count = useSelector(state => state.tradeReducer.counter);
@@ -34,6 +43,7 @@ const Home = ({ navigation }) => {
             width: "100%"
           }}>
             <SearchBar />
+            <DefaultView />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -47,7 +57,17 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         justifyContent: "center",
-        backgroundColor: "#fff",
+        backgroundColor: "#f6f6f6",
+    },
+    defaultViewContainer: {
+        marginTop: 30,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    imageStyle: {
+        height: 150,
+        width: 150,
+        marginVertical: 15,
     },
     innerContainer: {
         marginHorizontal: 15,

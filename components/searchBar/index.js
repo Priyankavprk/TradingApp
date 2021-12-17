@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         paddingHorizontal: 10,
+        borderRadius: 5,
     },  
     searchText: {
         backgroundColor: "#d3d3db",
