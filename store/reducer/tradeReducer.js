@@ -35,7 +35,6 @@ export default function tradeReducer(state = initialState, action) {
       }
     }
     case "REFRESH_DATA": {
-      console.log("reducer", action)
       return {
         ...initialState,
       }

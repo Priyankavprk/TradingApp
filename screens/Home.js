@@ -55,35 +55,28 @@ const Home = ({ navigation }) => {
         return (
             <>
                 <InfoSection data={currencyData} title={currencyPair} />
-                <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
-                    <Text style={styles.actionText}>{showTable ? "HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
-                </TouchableOpacity>
-                {showTable && <OrderBook data={orderBook} bids={bids} asks={asks} />}
-                <TouchableOpacity onPress={() => handleRefresh()} style={styles.refreshButton} >
-                    <FontAwesomeIcon icon={faSync} color={"#fff"} />
-                </TouchableOpacity>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
+                        <Text style={styles.actionText}>{showTable ? "HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
+                    </TouchableOpacity>
+                    {showTable && <OrderBook data={orderBook} bids={bids} asks={asks} />}
+                    <TouchableOpacity onPress={() => handleRefresh()} style={styles.refreshButton} >
+                        <FontAwesomeIcon icon={faSync} color={"#fff"} />
+                    </TouchableOpacity>
+                </ScrollView>
             </>
         );
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                contentContainerStyle={{ alignItems: "center" }}
+            <View
                 style={styles.innerContainer}
-                showsVerticalScrollIndicator={false}
             >
-                <View
-                    style={{
-                        width: "100%"
-                    }}
-                >
-                    <SearchBar value={searchText} setSearchText={setSearchText} onSearch={() => dispatch(getTradeData({data: searchText}))} />
-                    {!currencyData && <DefaultView />}
-                    {currencyData && <DataSection />}
-                </View>
-            </ScrollView>
+                <SearchBar value={searchText} setSearchText={setSearchText} onSearch={() => dispatch(getTradeData({data: searchText}))} />
+                {!currencyData && <DefaultView />}
+                {currencyData && <DataSection />}
+            </View>
         </SafeAreaView>
     );
 };
@@ -116,8 +109,8 @@ const styles = StyleSheet.create({
         marginVertical: 15,
     },
     innerContainer: {
-        marginHorizontal: 15,
         marginVertical: 20,
+        width: "90%"
     },
     refreshButton: {
         height: 50,

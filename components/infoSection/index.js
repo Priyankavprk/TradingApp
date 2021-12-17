@@ -27,9 +27,8 @@ const renderItem = (item, data) => {
 const InfoSection = (props) => {
     const displayFormat = ["bid", "last", "vwap", "ask", "volume"];
     const dateTime = moment.unix(props.data.timestamp).format('DD MMMM, YYYY HH:MM:SS');
-    console.log("data............", props.title)
     return (
-        <>
+        <View>
            <View style={styles.headingSection}>
                 <Text style={styles.titleText}>{props.title}</Text>
                 <Text>{dateTime}</Text>
@@ -40,7 +39,7 @@ const InfoSection = (props) => {
                 keyExtractor={(item, index) => item+index }
                 renderItem={({item}) => renderItem(item, props.data) }
             />
-        </>
+        </View>
     );
 };
 
