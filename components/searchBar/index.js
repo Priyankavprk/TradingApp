@@ -7,7 +7,7 @@ const SearchBar = (props) => {
     const [searchText, setSearchText] = useState("");
     return (
         <View style={styles.searchContainer}>
-            <TextInput onChangeText={value => setSearchText(value.toLowerCase())} placeholder='Enter currency pair' style={styles.searchText} />
+            <TextInput value={searchText} onChangeText={value => setSearchText(value.toLowerCase())} placeholder='Enter currency pair' style={styles.searchText} />
             <TouchableOpacity onPress={() => props.onSearch({data: searchText})} style={styles.searchButton} >
                 <FontAwesomeIcon icon={ faSearch } />
             </TouchableOpacity>

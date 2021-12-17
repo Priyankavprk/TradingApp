@@ -2,31 +2,42 @@ import React from 'react';
 import {FlatList, Text, StyleSheet, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment';
 
-const renderItem = () => {
+const displayNames = {
+    "bid": "OPEN",
+    "last": "HIGH",
+    "vwap": "LOW",
+    "ask": "LAST",
+    "volume": "VOLUME",
+}
+
+const renderItem = (item, data) => {
     return (
         <View style={styles.section}>
-            <Text>NAME</Text>
+            <Text style={styles.subTitle}>{displayNames[item]}</Text>
             <View style={styles.subSection}>
                 <FontAwesomeIcon icon={ faDollarSign } />
-                <Text>Value</Text>
+                <Text style={styles.valueText}>{data[item]}</Text>
             </View>
         </View>
     );
 };
 
-const InfoSection = () => {
+const InfoSection = (props) => {
+    const displayFormat = ["bid", "last", "vwap", "ask", "volume"];
+    const dateTime = moment.unix(props.data.timestamp).format('DD MMMM, YYYY HH:MM:SS');
     return (
         <>
            <View style={styles.headingSection}>
-                <Text style={styles.titleText}>Title</Text>
-                <Text>Timestamp</Text>
+                <Text style={styles.titleText}>{props.title}</Text>
+                <Text>{dateTime}</Text>
            </View>
            <FlatList
-                data={[1,2,3,4,5]}
+                data={displayFormat}
                 numColumns={2}
-                keyExtractor={(item, index) => index }
-                renderItem={(item) => renderItem() }
+                keyExtractor={(item, index) => item+index }
+                renderItem={({item}) => renderItem(item, props.data) }
             />
         </>
     );
@@ -48,9 +59,17 @@ const styles = StyleSheet.create({
     subSection: {
         flexDirection: "row",
     },
+    subTitle: {
+        color: "#000",
+    },
     titleText: {
         fontSize: 30,
         color: "#000",
+    },
+    valueText: {
+        fontSize: 16,
+        color: "#000",
+        fontWeight: "bold",
     }
 });
 

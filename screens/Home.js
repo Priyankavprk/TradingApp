@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons'
 
-import { getTradeData } from '../store/actions';
+import { getTradeData, loadOrderBook } from '../store/actions';
 import SearchBar from '../components/searchBar';
 import InfoSection from '../components/infoSection';
 import OrderBook from '../components/orderBook';
@@ -27,14 +27,27 @@ const DefaultView = () => {
 };
 
 const DataSection = () => {
+    const [showTable, setTable] = useState(false);
+
+    const currencyData = useSelector(state => state.tradeReducer.data);
+    const currencyPair = useSelector(state => state.tradeReducer.currencyPair);
+
     const dispatch = useDispatch();
+
+    const handleClick = () => {
+        if (!showTable) {
+            dispatch(loadOrderBook());
+        }
+        setTable(!showTable);
+    };
+
     return (
         <>
-            <InfoSection />
-            <TouchableOpacity style={styles.actionTextConatiner} onPress={() => dispatch(getTradeData())}>
-                <Text style={styles.actionText}>VIEW ORDER BOOK</Text>
+            <InfoSection data={currencyData} title={currencyPair} />
+            <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
+                <Text style={styles.actionText}>{showTable ?"HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
             </TouchableOpacity>
-            <OrderBook />
+            {showTable && <OrderBook />}
             <TouchableOpacity onPress={() => dispatch({type: "REFRESH_DATA"})} style={styles.refreshButton} >
                 <FontAwesomeIcon icon={ faSync } color={"#fff"} />
             </TouchableOpacity>
@@ -44,7 +57,6 @@ const DataSection = () => {
 
 const Home = ({ navigation }) => {
   const currencyData = useSelector(state => state.tradeReducer.data);
-  const currencyPair = useSelector(state => state.tradeReducer.currencyPair);
 
   const dispatch = useDispatch();
 
@@ -59,7 +71,8 @@ const Home = ({ navigation }) => {
         <View
           style={{
             width: "100%"
-          }}>
+          }}
+        >
             <SearchBar onSearch={(payload) => dispatch(getTradeData(payload))} />
             {!currencyData && <DefaultView />}
             {currencyData && <DataSection />}
