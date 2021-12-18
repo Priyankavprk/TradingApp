@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, View} from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
+
+import styles from './styles';
 
 const OrderBook = (props) => {
     const tableHead = ['BID PRICE', 'QTY', 'QTY', 'ASK PRICE']; 
@@ -34,33 +36,5 @@ OrderBook.defaultProps = {
     bids: [],
     asks: [],
 };
-
-const styles = StyleSheet.create({
-    head: { 
-        height: 40,
-    },
-    heading: {
-        color: "#000",
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    tableContainer: {
-        elevation: 1,
-        borderRadius: 3,
-        shadowColor: "grey",
-        shadowOffset: {
-        width: 0,
-        height: 2,
-        },
-        shadowOpacity: 0.8,
-        shadowRadius: 3.84,
-    },
-    tableStyle: {
-        padding: 5,
-    },
-    text: { 
-        textAlign: "center"
-    }
-});
 
 export default OrderBook;

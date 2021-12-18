@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {FlatList, Text, StyleSheet, View} from 'react-native';
+import {FlatList, Text, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment';
+
+import styles from './styles';
 
 const displayNames = {
     "bid": "OPEN",
@@ -53,40 +55,5 @@ InfoSection.propTypes = {
 InfoSection.defaultProps = {
     data: {},
 };
-
-const styles = StyleSheet.create({
-    dateFormat: {
-        fontSize: 12,
-    },
-    headingSection: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginTop: 25,
-    },
-    section: {
-        flexDirection: "column",
-        width: "50%",
-        marginVertical: 10,
-    },
-    subSection: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    subTitle: {
-        color: "#000",
-    },
-    titleText: {
-        fontSize: 30,
-        color: "#000",
-        maxWidth: 160,
-    },
-    valueText: {
-        fontSize: 16,
-        color: "#000",
-        fontWeight: "bold",
-    }
-});
 
 export default InfoSection;
