@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     tableContainer: {
         elevation: 1,
         borderRadius: 3,
+        backgroundColor: "#fff",
+        borderWidth: 0.3,
+        borderColor: "#fff",
         shadowColor: "grey",
         shadowOffset: {
         width: 0,
@@ -24,7 +27,8 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     text: { 
-        textAlign: "center"
+        textAlign: "center",
+        fontSize: 10,
     }
 });
 
