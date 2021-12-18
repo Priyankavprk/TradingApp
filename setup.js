@@ -10,12 +10,6 @@ import configureStore from './store/configureStore';
 
 const Stack = createNativeStackNavigator();
 const {store, persistor} = configureStore();
-
-
-const TestScreen = ({ navigation, route }) => {
-    return <Text>Test: {route.params.value}</Text>;
-};
-
 class Setup extends Component {
   render() {
     return (
@@ -32,7 +26,6 @@ class Setup extends Component {
                       component={Home}
                       options={{ title: 'TradingApp' }}
                     />
-                    <Stack.Screen name="testScreen" component={TestScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </PersistGate>
