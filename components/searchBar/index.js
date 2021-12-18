@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import {Keyboard, TextInput, TouchableOpacity, StyleSheet, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +13,12 @@ const SearchBar = (props) => {
             </TouchableOpacity>
         </View>
     );
+};
+
+SearchBar.propTypes = {
+    value: PropTypes.string,
+    setSearchText: PropTypes.func,
+    onSearch: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

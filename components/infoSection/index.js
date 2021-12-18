@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import {FlatList, Text, StyleSheet, View} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
@@ -12,21 +13,22 @@ const displayNames = {
     "volume": "VOLUME",
 }
 
-const renderItem = (item, data) => {
-    return (
-        <View style={styles.section}>
-            <Text style={styles.subTitle}>{displayNames[item]}</Text>
-            <View style={styles.subSection}>
-                <FontAwesomeIcon icon={ faDollarSign } />
-                <Text style={styles.valueText}>{data[item]}</Text>
-            </View>
-        </View>
-    );
-};
-
 const InfoSection = (props) => {
     const displayFormat = ["bid", "last", "vwap", "ask", "volume"];
     const dateTime = moment.unix(props.data.timestamp).format('DD MMMM, YYYY HH:MM:SS');
+    
+    const renderItem = (item, data) => {
+        return (
+            <View style={styles.section}>
+                <Text style={styles.subTitle}>{displayNames[item]}</Text>
+                <View style={styles.subSection}>
+                    <FontAwesomeIcon icon={ faDollarSign } />
+                    <Text style={styles.valueText}>{data[item]}</Text>
+                </View>
+            </View>
+        );
+    };
+
     return (
         <View>
            <View style={styles.headingSection}>
@@ -41,6 +43,15 @@ const InfoSection = (props) => {
             />
         </View>
     );
+};
+
+InfoSection.propTypes = {
+    data: PropTypes.object,
+    title: PropTypes.string,
+};
+
+InfoSection.defaultProps = {
+    data: {},
 };
 
 const styles = StyleSheet.create({
@@ -61,6 +72,7 @@ const styles = StyleSheet.create({
     },
     subSection: {
         flexDirection: "row",
+        alignItems: "center",
     },
     subTitle: {
         color: "#000",

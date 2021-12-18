@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import {Text, StyleSheet, View} from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 
@@ -22,6 +23,16 @@ const OrderBook = (props) => {
             </View>
         </>
     );
+};
+
+OrderBook.propTypes = {
+    bids: PropTypes.array,
+    asks: PropTypes.array,
+};
+
+OrderBook.defaultProps = {
+    bids: [],
+    asks: [],
 };
 
 const styles = StyleSheet.create({
