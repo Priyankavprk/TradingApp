@@ -4,6 +4,12 @@ const styles = StyleSheet.create({
     head: { 
         height: 40,
     },
+    headText: {
+        textAlign: "center",
+        fontSize: 11,
+        color: "#000",
+        fontWeight: "bold",
+    },
     heading: {
         color: "#000",
         fontSize: 16,

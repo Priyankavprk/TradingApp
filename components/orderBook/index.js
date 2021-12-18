@@ -19,7 +19,7 @@ const OrderBook = (props) => {
             <Text style={styles.heading}>ORDER BOOK</Text>
             <View style={styles.tableContainer}>
             <Table style={styles.tableStyle}>
-                    <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
+                    <Row data={tableHead} style={styles.head} textStyle={styles.headText}/>
                     <Rows data={tableData} textStyle={styles.text}/>
             </Table>
             </View>
