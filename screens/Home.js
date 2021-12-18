@@ -55,11 +55,16 @@ const Home = ({ navigation }) => {
             <>
                 <InfoSection data={currencyData} title={currencyPair} />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity style={styles.actionTextConatiner} onPress={() => handleClick()}>
-                        <Text style={styles.actionText}>{showTable ? "HIDE ORDER BOOK" : "VIEW ORDER BOOK"}</Text>
+                    <TouchableOpacity 
+                        style={styles.actionTextConatiner}
+                        onPress={() => handleClick()}
+                    >
+                        <Text style={styles.actionText}>
+                            {showTable ? "HIDE ORDER BOOK" : "VIEW ORDER BOOK"}
+                        </Text>
                     </TouchableOpacity>
                     {showTable && <OrderBook bids={bids} asks={asks} />}
-                    <TouchableOpacity onPress={() => handleRefresh()} style={styles.refreshButton} >
+                    <TouchableOpacity onPress={() => handleRefresh()} style={styles.refreshButton}>
                         <FontAwesomeIcon icon={faSync} color={"#fff"} />
                     </TouchableOpacity>
                 </ScrollView>
@@ -69,10 +74,12 @@ const Home = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View
-                style={styles.innerContainer}
-            >
-                <SearchBar value={searchText} setSearchText={setSearchText} onSearch={() => dispatch(getTradeData({data: searchText}))} />
+            <View   style={styles.innerContainer}>
+                <SearchBar 
+                    value={searchText}
+                    setSearchText={setSearchText}
+                    onSearch={() => dispatch(getTradeData({data: searchText}))}
+                />
                 {!currencyData && <DefaultView />}
                 {currencyData && <DataSection />}
             </View>
