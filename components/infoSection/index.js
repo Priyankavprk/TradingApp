@@ -8,15 +8,15 @@ import moment from 'moment';
 import styles from './styles';
 
 const displayNames = {
-    "bid": "OPEN",
-    "last": "HIGH",
-    "vwap": "LOW",
-    "ask": "LAST",
+    "open": "OPEN",
+    "high": "HIGH",
+    "low": "LOW",
+    "last": "LAST",
     "volume": "VOLUME",
 }
 
 const InfoSection = (props) => {
-    const displayFormat = ["bid", "last", "vwap", "ask", "volume"];
+    const displayFormat = ["open", "high", "low", "last", "volume"];
     const dateTime = moment.unix(props.data.timestamp).format('DD MMMM, YYYY HH:MM:SS');
     
     const renderItem = (item, data) => {
