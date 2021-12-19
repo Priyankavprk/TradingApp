@@ -40,7 +40,7 @@ const InfoSection = (props) => {
            <FlatList
                 data={displayFormat}
                 numColumns={2}
-                keyExtractor={(item, index) => item+index }
+                keyExtractor={(item, index) => `${item}${index}`}
                 renderItem={({item}) => renderItem(item, props.data) }
             />
         </View>
