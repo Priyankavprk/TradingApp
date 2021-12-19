@@ -16,3 +16,10 @@ it('flatlist return keyExtractor correctly', () => {
   const key = wrapper.find('FlatList').props().keyExtractor('open', 0);
   expect(key).toEqual('open0')
 });
+
+it('flatlist renderItem correctly', () => {
+  const wrapper = shallow(<InfoSection />);
+  const flatList = wrapper.find('FlatList');
+  const item = flatList.renderProp('renderItem')({ item: 'open' });
+  expect(item).toMatchSnapshot();
+});
