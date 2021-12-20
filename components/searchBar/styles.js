@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+    errorText: {
+        color: "red",
+    },
     searchButton: {
         height: "100%",
         width: "100%",
