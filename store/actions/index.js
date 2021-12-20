@@ -1,5 +1,5 @@
 export function getTradeData(payload) {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         fetch(`https://www.bitstamp.net/api/ticker/${payload.data}`, {
             method: 'get'
         })
@@ -14,7 +14,7 @@ export function getTradeData(payload) {
     }
 }
 
-export function loadOrderBook(payload) {
+export function loadOrderBook() {
     return async (dispatch, getState) => {
         const currenyPair = getState().tradeReducer.currencyPair;
         fetch(`https://www.bitstamp.net/api/order_book/${currenyPair}`, {
